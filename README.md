@@ -44,6 +44,9 @@ data persisted in the browser; Production sends app data and authentication
 requests to Supabase. The choice is remembered in the browser and takes effect
 after the app reloads. Configure both `VITE_SUPABASE_URL` and
 `VITE_SUPABASE_ANON_KEY` (see `.env.example`) to enable Production mode.
+Registration confirmation links redirect to the origin where the user
+registered. Add the production domain under Supabase Dashboard ->
+Authentication -> URL Configuration -> Redirect URLs.
 
 The admin dashboard has its own Demo/Production toggle on `/dashboard/login`.
 Its mode is independent from the app login and is remembered in the browser.

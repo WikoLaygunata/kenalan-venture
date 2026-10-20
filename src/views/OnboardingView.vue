@@ -164,6 +164,9 @@ async function handleResendEmail() {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email: registeredEmail.value,
+        options: {
+          emailRedirectTo: window.location.origin,
+        },
       })
       if (error) throw error
       toast.success('Email verifikasi baru telah dikirimkan ke kotak masukmu!')
