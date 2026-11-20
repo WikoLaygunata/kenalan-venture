@@ -5,6 +5,16 @@ import App from './App.vue'
 import router from './router'
 import { initAuth } from './stores/auth'
 
+const initialUrl = new URL(window.location.href)
+const authFragment = new URLSearchParams(initialUrl.hash.slice(1))
+if (
+  authFragment.get('type') === 'recovery' &&
+  initialUrl.pathname !== router.resolve({ name: 'reset-password' }).path
+) {
+  initialUrl.pathname = router.resolve({ name: 'reset-password' }).path
+  window.history.replaceState(window.history.state, '', initialUrl)
+}
+
 const PRELOAD_RELOAD_KEY = 'kenalan.preloadReloaded'
 
 window.addEventListener('vite:preloadError', (event) => {

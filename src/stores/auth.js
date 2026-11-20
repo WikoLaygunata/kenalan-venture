@@ -25,6 +25,14 @@ const profile = ref(null)
 const ready = ref(false)
 let demoResetEmail = ''
 
+function getAppUrl() {
+  const configuredAppUrl = import.meta.env.VITE_APP_URL?.trim()
+  const fallbackAppUrl = import.meta.env.PROD
+    ? 'https://kenalan-venture.vercel.app'
+    : window.location.origin
+  return (configuredAppUrl || fallbackAppUrl).replace(/\/+$/, '')
+}
+
 export const isLoggedIn = computed(() => Boolean(userId.value))
 export const currentUserId = computed(() => userId.value)
 export const currentProfile = computed(() => profile.value)
@@ -193,7 +201,7 @@ export async function signUp({
     email,
     password,
     options: {
-      emailRedirectTo: window.location.origin,
+      emailRedirectTo: getAppUrl(),
       data: {
         full_name: fullName,
         username,
@@ -239,10 +247,8 @@ export async function requestPasswordReset(email) {
     return
   }
 
-  const configuredAppUrl = import.meta.env.VITE_APP_URL?.trim()
-  const appUrl = (configuredAppUrl || window.location.origin).replace(/\/+$/, '')
   const { error } = await supabase.auth.resetPasswordForEmail(normalized, {
-    redirectTo: `${appUrl}/reset-password`,
+    redirectTo: `${getAppUrl()}/reset-password`,
   })
   if (error) throw new Error(translateAuthError(error.message))
 }
