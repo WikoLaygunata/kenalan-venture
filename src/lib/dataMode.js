@@ -2,24 +2,30 @@ import { computed, ref } from 'vue'
 import { isSupabaseConfigured } from './supabase'
 
 const STORAGE_KEY = 'kenalan.dataMode'
-const DEFAULT_MODE = isSupabaseConfigured ? 'production' : 'demo'
+// Production is the only application mode. The demo implementation is kept
+// below the forced default for local reference, but is not available to users.
+const DEFAULT_MODE = 'production'
 
 function readStoredMode() {
   try {
     const storedMode = localStorage.getItem(STORAGE_KEY)
-    if (storedMode === 'demo' || (storedMode === 'production' && isSupabaseConfigured)) {
+    if (storedMode === 'production' && isSupabaseConfigured) {
       return storedMode
     }
   } catch {
     // Fall back to the configured default when browser storage is unavailable.
   }
-  return DEFAULT_MODE
+  return isSupabaseConfigured ? DEFAULT_MODE : 'demo'
 }
 
 export const dataMode = ref(readStoredMode())
 export const isDemoMode = computed(() => dataMode.value === 'demo')
 
 export function setDataMode(mode) {
+  // Demo mode is intentionally disabled in production.
+  if (mode === 'demo') {
+    throw new Error('Mode demo dinonaktifkan. Aplikasi menggunakan database.')
+  }
   if (mode !== 'demo' && mode !== 'production') {
     throw new Error('Mode aplikasi tidak valid.')
   }

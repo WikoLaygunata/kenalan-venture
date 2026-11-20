@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ArrowRight, Command, LockKeyhole, ShieldCheck } from 'lucide-vue-next'
+import { ArrowRight, LockKeyhole, ShieldCheck } from 'lucide-vue-next'
 import { dashboardAuthMessage, signInDashboard } from '@/stores/dashboardAuth'
 import { isSupabaseConfigured } from '@/lib/supabase'
 import { dashboardDataMode, setDashboardDataMode } from '@/lib/dashboardMode'
@@ -52,9 +52,11 @@ async function submit() {
     <div class="relative grid w-full max-w-[980px] overflow-hidden rounded-[30px] border border-white bg-white shadow-[0_30px_100px_-45px_rgba(15,23,42,0.3)] md:grid-cols-[1fr_1.02fr]">
       <section class="hidden flex-col justify-between bg-slate-900 p-10 text-white md:flex lg:p-12">
         <RouterLink to="/" class="flex w-fit items-center gap-3">
-          <span class="grid h-10 w-10 place-items-center rounded-2xl bg-kenalan-400 text-slate-900">
-            <Command :size="20" :stroke-width="2.4" />
-          </span>
+          <img
+            src="/LogoKenalan.png"
+            alt="Logo Kenalan"
+            class="h-10 w-10 rounded-2xl object-cover"
+          />
           <span class="text-lg font-extrabold tracking-tight">kenalan</span>
         </RouterLink>
         <div class="max-w-sm">
@@ -79,9 +81,11 @@ async function submit() {
 
       <section class="px-6 py-9 sm:px-10 sm:py-12 lg:px-14">
         <div class="mb-8 flex items-center gap-3 md:hidden">
-          <span class="grid h-10 w-10 place-items-center rounded-2xl bg-kenalan-500 text-white">
-            <Command :size="20" />
-          </span>
+          <img
+            src="/LogoKenalan.png"
+            alt="Logo Kenalan"
+            class="h-10 w-10 rounded-2xl object-cover"
+          />
           <span class="text-lg font-extrabold tracking-tight text-slate-900">kenalan <span class="font-semibold text-slate-400">admin</span></span>
         </div>
         <div class="mb-8">
@@ -90,6 +94,7 @@ async function submit() {
           <p class="mt-2 text-sm text-slate-500">Gunakan akun admin untuk melanjutkan.</p>
         </div>
 
+        <!-- Dummy-mode selector retained below for emergency prototype reference.
         <section class="mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <h3 class="text-xs font-extrabold text-slate-800">Pilih mode dashboard</h3>
           <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Mode dashboard admin">
@@ -133,6 +138,7 @@ async function submit() {
             {{ modeError }}
           </p>
         </section>
+        -->
 
         <form class="space-y-5" @submit.prevent="submit">
           <label class="block">
@@ -157,11 +163,13 @@ async function submit() {
           </button>
         </form>
 
+        <!-- Dummy dashboard credentials retained for emergency prototype reference.
         <div v-if="showDemoCredentials" class="mt-6 rounded-2xl border border-kenalan-100 bg-kenalan-50/70 p-4">
           <p class="text-[10px] font-extrabold uppercase tracking-[0.14em] text-kenalan-700">Akun demo dashboard</p>
           <p class="mt-2 text-xs text-slate-600"><span class="font-semibold">Email:</span> admin@kenalan.id</p>
           <p class="mt-1 text-xs text-slate-600"><span class="font-semibold">Password:</span> kenalan123</p>
         </div>
+        -->
         <p class="mt-7 text-center text-[11px] leading-relaxed text-slate-400">
           Sesi dashboard terpisah dari sesi pengguna aplikasi.
         </p>

@@ -5,7 +5,6 @@ import {
   Activity,
   ArrowUpRight,
   ChevronRight,
-  Command,
   FileText,
   LayoutDashboard,
   LogOut,
@@ -70,9 +69,11 @@ async function logout() {
     >
       <div class="flex h-[82px] items-center justify-between border-b border-slate-100 px-6">
         <RouterLink to="/dashboard/home" class="flex items-center gap-3" @click="menuOpen = false">
-          <span class="grid h-10 w-10 place-items-center rounded-2xl bg-kenalan-500 text-white shadow-lg shadow-kenalan-500/25">
-            <Command :size="20" :stroke-width="2.4" />
-          </span>
+          <img
+            src="/LogoKenalan.png"
+            alt="Logo Kenalan"
+            class="h-10 w-10 rounded-2xl object-cover shadow-lg shadow-kenalan-500/25"
+          />
           <span>
             <span class="block text-[15px] font-extrabold tracking-tight text-slate-900">kenalan</span>
             <span class="block text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Admin console</span>

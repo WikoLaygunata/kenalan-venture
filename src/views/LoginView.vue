@@ -97,11 +97,11 @@ async function fillDemo() {
     <div class="screen-scroll px-6 pb-8 pt-[calc(env(safe-area-inset-top)+2.5rem)]">
       <!-- Brand -->
       <div class="mb-8">
-        <div
-          class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-kenalan-500 to-fuchsia-400 text-white shadow-lg shadow-kenalan-500/30"
-        >
-          <Nfc class="h-6 w-6" aria-hidden="true" />
-        </div>
+        <img
+          src="/LogoKenalan.png"
+          alt="Logo Kenalan"
+          class="mb-4 h-12 w-12 rounded-2xl object-cover shadow-lg shadow-kenalan-500/30"
+        />
         <h1 class="text-2xl font-extrabold leading-tight tracking-tight text-slate-800">
           Halo lagi 👋
         </h1>
@@ -110,6 +110,7 @@ async function fillDemo() {
         </p>
       </div>
 
+      <!-- Dummy-mode selector kept commented for emergency prototype reference.
       <section class="mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
         <h2 class="text-xs font-extrabold text-slate-800">Pilih mode aplikasi</h2>
         <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Mode aplikasi">
@@ -153,6 +154,7 @@ async function fillDemo() {
           {{ modeError }}
         </p>
       </section>
+      -->
 
       <!-- Context banner when arriving from a profile they wanted to connect with -->
       <div
@@ -225,7 +227,7 @@ async function fillDemo() {
           Lupa password?
         </RouterLink>
 
-        <!-- Demo mode helper -->
+        <!-- Dummy-mode helper retained below for emergency prototype reference.
         <div v-if="dataMode === 'demo'" class="mt-5 rounded-2xl bg-slate-50 p-4">
           <p class="text-[11px] font-bold uppercase tracking-wide text-slate-400">Demo mode</p>
           <p class="mt-1.5 text-xs leading-relaxed text-slate-500">
@@ -244,6 +246,7 @@ async function fillDemo() {
             Masuk sebagai akun demo
           </button>
         </div>
+        -->
 
         <div class="mt-6 border-t border-slate-100 pt-5">
           <RouterLink :to="{ name: 'activate' }" class="btn-ghost w-full !py-3">

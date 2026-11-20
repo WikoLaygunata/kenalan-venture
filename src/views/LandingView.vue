@@ -43,11 +43,11 @@ const FEATURES = [
     />
 
     <div class="screen-scroll relative px-6 pb-8 pt-[calc(env(safe-area-inset-top)+3rem)]">
-      <div
-        class="mb-5 flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-kenalan-400 to-fuchsia-400 shadow-lg shadow-kenalan-500/40"
-      >
-        <Nfc class="h-7 w-7" aria-hidden="true" />
-      </div>
+      <img
+        src="/LogoKenalan.png"
+        alt="Logo Kenalan"
+        class="mb-5 h-14 w-14 rounded-3xl object-cover shadow-lg shadow-kenalan-500/40"
+      />
 
       <h1 class="text-3xl font-extrabold leading-[1.15] tracking-tight">
         Kenalan.

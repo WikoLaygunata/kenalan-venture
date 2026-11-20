@@ -5,12 +5,14 @@ import {
 } from './supabase'
 
 const STORAGE_KEY = 'kenalan.dashboard.dataMode'
-const DEFAULT_MODE = isDashboardSupabaseRequested ? 'production' : 'demo'
+// Production is the only dashboard mode. Demo code is retained as reference,
+// but browser state cannot switch the dashboard back to it.
+const DEFAULT_MODE = 'production'
 
 function readStoredMode() {
   try {
     const storedMode = localStorage.getItem(STORAGE_KEY)
-    if (storedMode === 'demo' || (storedMode === 'production' && isSupabaseConfigured)) {
+    if (storedMode === 'production' && isSupabaseConfigured) {
       return storedMode
     }
   } catch {
@@ -23,6 +25,10 @@ export const dashboardDataMode = ref(readStoredMode())
 export const isDashboardDemoMode = computed(() => dashboardDataMode.value === 'demo')
 
 export function setDashboardDataMode(mode) {
+  // Demo mode is intentionally disabled in production.
+  if (mode === 'demo') {
+    throw new Error('Mode demo dinonaktifkan. Dashboard menggunakan database.')
+  }
   if (mode !== 'demo' && mode !== 'production') {
     throw new Error('Mode dashboard tidak valid.')
   }
