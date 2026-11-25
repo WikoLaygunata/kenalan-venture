@@ -55,17 +55,26 @@ const userCoords = computed(() =>
   geoCoords.value ? { lat: geoCoords.value.lat, lng: geoCoords.value.lng } : null,
 )
 const hasCoords = computed(() => mapStamps.value.length > 0)
+const canShowMap = computed(() => hasCoords.value || userCoords.value != null)
 
 const mapRef = ref(null)
 
+function refreshMap() {
+  setTimeout(() => mapRef.value?.refresh?.(), 220)
+}
+
 // When the sheet opens, the map mounts fresh; nudge it to re-measure once the
-// open animation has settled.
+// open animation has settled. Also refresh when the map becomes available
+// because the user activated geolocation.
 watch(
   () => props.open,
   (isOpen) => {
-    if (isOpen) setTimeout(() => mapRef.value?.refresh?.(), 220)
+    if (isOpen) refreshMap()
   },
 )
+watch(canShowMap, (show, wasShowing) => {
+  if (props.open && show && !wasShowing) refreshMap()
+})
 </script>
 
 <template>
@@ -78,7 +87,7 @@ watch(
     <div v-if="stamp" class="space-y-4">
       <!-- leaflet mini map -->
       <div
-        v-if="hasCoords"
+        v-if="canShowMap"
         class="relative mx-auto h-56 w-full overflow-hidden rounded-3xl border border-slate-200 shadow-card"
       >
         <StampMap ref="mapRef" :stamps="mapStamps" :user-coords="userCoords" readonly />
@@ -87,15 +96,26 @@ watch(
         v-else
         class="rounded-3xl border border-slate-200 bg-slate-50 px-5 py-8 text-center text-xs text-slate-400"
       >
-        Stamp ini belum punya titik koordinat di peta.
+        Stamp ini belum punya titik koordinat di peta. Aktifkan lokasi kamu untuk melihat posisi kamu sekarang.
       </div>
+      <p
+        v-if="canShowMap && !hasCoords"
+        class="text-center text-[11px] font-semibold text-slate-500"
+      >
+        Stamp ini belum punya titik koordinat. Menampilkan lokasi kamu sekarang.
+      </p>
 
       <!-- distance + direction -->
       <div class="rounded-2xl bg-slate-50 p-4 text-center">
-        <p class="text-sm font-bold text-slate-800">{{ distanceLabel(distanceM) }}</p>
+        <p class="text-sm font-bold text-slate-800">
+          {{ hasCoords ? distanceLabel(distanceM) : 'Lokasi stamp belum tercatat' }}
+        </p>
         <p v-if="direction" class="mt-0.5 inline-flex items-center gap-1 text-xs text-slate-500">
           <Navigation class="h-3 w-3" aria-hidden="true" />
           Ke arah {{ direction }}
+        </p>
+        <p v-else-if="!hasCoords" class="mt-0.5 text-xs text-slate-500">
+          Jarak dan arah belum bisa dihitung karena stamp ini tidak punya koordinat.
         </p>
         <p v-if="label" class="mt-2 text-xs text-slate-500">
           Keterangan: <span class="font-semibold text-slate-600">{{ label }}</span>

@@ -464,6 +464,37 @@ function openProfile(userId) {
           </p>
         </div>
 
+        <!-- geolocation: attach current coordinates -->
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3.5">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-xs font-bold text-slate-700">Lokasi GPS</p>
+              <p class="mt-0.5 text-[11px] leading-relaxed text-slate-500">
+                <template v-if="geoActive">Lokasi kamu sekarang akan disertakan di stamp ini.</template>
+                <template v-else>Kalau lokasi stamp belum ada, kamu bisa pakai lokasi kamu sekarang.</template>
+              </p>
+            </div>
+            <button
+              v-if="!geoActive"
+              type="button"
+              class="btn-secondary shrink-0 !px-3 !py-2 !text-[11px]"
+              :disabled="geoStatus === 'prompting' || geoStatus === 'unsupported'"
+              @click="requestGeo"
+            >
+              <LocateFixed class="h-3.5 w-3.5" aria-hidden="true" />
+              {{ geoStatus === 'prompting' ? 'Mencari?' : 'Pakai lokasi sekarang' }}
+            </button>
+            <span
+              v-else
+              class="inline-flex shrink-0 items-center gap-1 rounded-full bg-sky-100 px-2.5 py-1 text-[11px] font-semibold text-sky-700"
+            >
+              <LocateFixed class="h-3 w-3" aria-hidden="true" />
+              Aktif
+            </span>
+          </div>
+          <p v-if="geoError" class="mt-1.5 text-[11px] font-semibold text-blush-deep">{{ geoError }}</p>
+        </div>
+
         <!-- audience: who can see this stamp -->
         <div>
           <span class="field-label">Siapa yang bisa lihat</span>
