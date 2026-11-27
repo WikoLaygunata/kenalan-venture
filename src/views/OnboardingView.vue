@@ -282,7 +282,7 @@ async function handleRegister() {
         class="flex flex-col items-center gap-3 py-14 text-center"
       >
         <span class="text-4xl" aria-hidden="true">👋</span>
-        <p class="text-sm font-bold text-slate-700">Token ini sudah diklaim</p>
+        <p class="text-sm font-bold text-slate-700">Menuju Halaman Profile</p>
         <p class="max-w-[17rem] text-xs leading-relaxed text-slate-400">
           Mengalihkan kamu ke profil pemilik keychain…
         </p>
