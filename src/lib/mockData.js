@@ -22,10 +22,9 @@ const STAMP_AUDIENCE_KEY = 'kenalan.stampAudience'
 /**
  * Default campus center for the map. Stamps carry real lat/lng now so Leaflet
  * can place them; when a user drops a stamp without geolocation we fan it out a
- * little around this point. (This is a generic campus-ish spot in Depok, ID —
- * swap for your real campus coords.)
+ * little around this point.
  */
-export const CAMPUS_CENTER = { lat: -6.3629, lng: 106.8275 }
+export const CAMPUS_CENTER = { lat: -6.2017, lng: 106.7825 }
 
 /** Credentials that "work" in demo mode. */
 export const DEMO_CREDENTIALS = {
